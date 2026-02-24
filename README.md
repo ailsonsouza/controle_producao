@@ -30,5 +30,5 @@ O projeto está em fase ativa de evolução. Atualmente, a base organizacional d
 
 ## Como Rodar o Projeto
 1. Clone este repositório:
-   ```bash
-   git clone [https://github.com/ailson-pereira/cia-manutencao.git](https://github.com/ailson-pereira/cia-manutencao.git)
+   ```bash 
+   git clone [https://github.com/ailsonsouza/controle_producao.git](https://github.com/ailsonsouza/controle_producao.git)

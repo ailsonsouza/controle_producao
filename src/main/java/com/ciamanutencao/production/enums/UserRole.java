@@ -2,8 +2,8 @@ package com.ciamanutencao.production.enums;
 
 public enum UserRole {
     ADMIN (1),
-    TECHNICIAN (2), // O "Técnico" da manutenção
-    REQUESTER (3);  // O "Requerente" que abre a OS
+    TECHNICIAN (2),
+    REQUESTER (3);
 
     private final int code;
 

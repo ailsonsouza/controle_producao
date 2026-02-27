@@ -1,12 +1,17 @@
 package com.ciamanutencao.production.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,6 +25,10 @@ public class Department implements Serializable {
 
     @Column(nullable = false)
     private String name;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "departments")
+    private Set<Technical> technicians = new HashSet<>();
 
     private Boolean active;
 
@@ -54,6 +63,10 @@ public class Department implements Serializable {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Set<Technical> getTechnicians() {
+        return technicians;
     }
 
     @Override

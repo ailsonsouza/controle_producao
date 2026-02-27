@@ -21,6 +21,8 @@ public class DepartmentService {
         this.DepartmentRepository = DepartmentRepository;
     }
 
+    //@PreAuthorize("hasRole('ADMIN')")
+    @Transactional
     public DepartmentDTO createDepartment(DepartmentDTO DepartmentDto) {
         Department Department = new Department();
         Department.setName(DepartmentDto.name());
@@ -42,6 +44,7 @@ public class DepartmentService {
         return new DepartmentDTO(Department);
     }
 
+    //@PreAuthorize("hasRole('ADMIN')")
     @Transactional
     public DepartmentDTO updateDepartment(Long id, DepartmentDTO updatedDepartment) {
         try {
@@ -57,6 +60,8 @@ public class DepartmentService {
         }
     }
 
+    //@PreAuthorize("hasRole('ADMIN')")
+    @Transactional
     public void deleteDepartment(Long id) {
         if (!DepartmentRepository.existsById(id)) {
             throw new ResourceNotFoundException(id);

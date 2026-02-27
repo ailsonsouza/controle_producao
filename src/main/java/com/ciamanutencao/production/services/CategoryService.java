@@ -21,13 +21,14 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
+    // @PreAuthorize("hasRole('ADMIN')")
+    @Transactional
     public CategoryDTO createCategory(CategoryDTO categoryDto) {
         Category category = new Category();
         category.setName(categoryDto.name());
         category.setActive(categoryDto.active());
         category = categoryRepository.save(category);
         return new CategoryDTO(category);
-
 
     }
 
@@ -43,6 +44,7 @@ public class CategoryService {
         return new CategoryDTO(category);
     }
 
+    // @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     public CategoryDTO updateCategory(Long id, CategoryDTO updatedCategory) {
         try {
@@ -58,6 +60,8 @@ public class CategoryService {
         }
     }
 
+    // @PreAuthorize("hasRole('ADMIN')")
+    @Transactional
     public void deleteCategory(Long id) {
         if (!categoryRepository.existsById(id)) {
             throw new ResourceNotFoundException(id);

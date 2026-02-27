@@ -1,15 +1,18 @@
 package com.ciamanutencao.production.dto;
 
+import java.util.Set;
+
 import com.ciamanutencao.production.entities.Department;
 import com.ciamanutencao.production.entities.Technical;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 public record TechnicalDTO(
     Long id, 
     
-    @NotBlank(message = "O departamento não pode ser vazio ou nulo")
-    Department department, 
+    @NotEmpty
+    Set<Department> departments, 
     
     @NotBlank(message = "O nome da categoria não pode ser vazio ou nulo")
     String name, 
@@ -18,6 +21,6 @@ public record TechnicalDTO(
         
 
     public TechnicalDTO(Technical entity) {
-        this(entity.getId(), entity.getDepartment(), entity.getName(), entity.getActive());
+        this(entity.getId(), entity.getDepartments(), entity.getName(), entity.getActive());
     }
 }

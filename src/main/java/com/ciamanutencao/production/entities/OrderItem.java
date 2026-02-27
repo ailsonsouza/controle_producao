@@ -13,11 +13,13 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_order_item")
-public class OrderItem implements Serializable{
-    
+public class OrderItem implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Integer itemNumber;
 
     private String itemDescription;
     private String serialNumber;
@@ -32,9 +34,11 @@ public class OrderItem implements Serializable{
     public OrderItem() {
     }
 
-    public OrderItem(Long id, String itemDescription, String serialNumber, String serviceDescription,
+    public OrderItem(Long id, Integer itemNumber, String itemDescription, String serialNumber,
+            String serviceDescription,
             BigDecimal itemPrice, BigDecimal servicePrice, Order order) {
         this.id = id;
+        this.itemNumber = itemNumber;
         this.itemDescription = itemDescription;
         this.serialNumber = serialNumber;
         this.serviceDescription = serviceDescription;
@@ -49,6 +53,14 @@ public class OrderItem implements Serializable{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getItemNumber() {
+        return itemNumber;
+    }
+
+    public void setItemNumber(Integer itemNumber) {
+        this.itemNumber = itemNumber;
     }
 
     public String getItemDescription() {
@@ -99,8 +111,6 @@ public class OrderItem implements Serializable{
         this.order = order;
     }
 
-    
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -132,6 +142,5 @@ public class OrderItem implements Serializable{
 
         return item.add(service);
     }
-
 
 }

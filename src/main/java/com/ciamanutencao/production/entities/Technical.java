@@ -1,6 +1,8 @@
 package com.ciamanutencao.production.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,36 +10,37 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_technical")
-public class Technical implements Serializable{
+public class Technical implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "department_id", nullable = false)
-    private Department department;
+    @ManyToMany
+    @JoinTable(name = "tb_technical_department", joinColumns = @JoinColumn(name = "technical_id"), inverseJoinColumns = @JoinColumn(name = "department_id"))
+    private Set<Department> departments = new HashSet<>();
 
     @Column(nullable = false)
     private String name;
 
-
     private Boolean active;
-    
+
     public Technical() {
     }
 
     public Technical(Long id, Department department, String name, Boolean active) {
         this.id = id;
-        this.department = department;
+        departments.add(department);
         this.name = name;
         this.active = active;
     }
-
 
     public Long getId() {
         return id;
@@ -47,12 +50,12 @@ public class Technical implements Serializable{
         this.id = id;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Set<Department> getDepartments() {
+        return departments;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setDepartments(Set<Department> departments) {
+        this.departments = departments;
     }
 
     public String getName() {
@@ -95,14 +98,5 @@ public class Technical implements Serializable{
             return false;
         return true;
     }
-
-    
-
-    
-
-    
-
-    
-    
 
 }

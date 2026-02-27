@@ -9,9 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ciamanutencao.production.dto.PasswordUpdateDTO;
 import com.ciamanutencao.production.dto.UserCreateDTO;
 import com.ciamanutencao.production.dto.UserDTO;
+import com.ciamanutencao.production.entities.Department;
 import com.ciamanutencao.production.entities.User;
 import com.ciamanutencao.production.exceptions.PasswordMismatchException;
 import com.ciamanutencao.production.exceptions.ResourceNotFoundException;
+import com.ciamanutencao.production.repositories.DepartmentRepository;
 import com.ciamanutencao.production.repositories.UserRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -21,11 +23,12 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final DepartmentRepository departmentRepository;
 
-    // O Spring injeta automaticamente aqui
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, DepartmentRepository departmentRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.departmentRepository = departmentRepository;
     }
 
     @Transactional
@@ -34,7 +37,11 @@ public class UserService {
 
         user.setLogin(dto.login());
         user.setName(dto.name());
-        user.setDepartment(dto.department());
+
+        Department department = departmentRepository.findById(dto.department().getId())
+        .orElseThrow(() -> new ResourceNotFoundException("Departamento não encontrado com ID: " + dto.department().getId()));
+
+        user.setDepartment(department);
         user.setUserRole(dto.userRole());
         user.setActive(dto.active() != null ? dto.active() : true);
 
@@ -81,7 +88,6 @@ public class UserService {
 
     @Transactional
     public void updatePassword(Long id, PasswordUpdateDTO dto) {
-        // 1. Validar se a nova senha e a confirmação são iguais (Fail-fast)
         if (!dto.newPassword().equals(dto.confirmNewPassword())) {
             throw new PasswordMismatchException("A nova senha e a confirmação não conferem.");
         }
@@ -89,17 +95,14 @@ public class UserService {
         User entity = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
 
-        // 2. Validar o login
         if (!entity.getLogin().equals(dto.login())) {
             throw new PasswordMismatchException("Login informado não confere.");
         }
 
-        // 3. Validar a senha atual
         if (!passwordEncoder.matches(dto.oldPassword(), entity.getPassword())) {
             throw new PasswordMismatchException("Senha atual incorreta.");
         }
 
-        // 4. Salvar nova senha criptografada
         entity.setPassword(passwordEncoder.encode(dto.newPassword()));
     }
 

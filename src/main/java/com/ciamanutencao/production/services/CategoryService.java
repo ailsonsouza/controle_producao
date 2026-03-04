@@ -2,6 +2,7 @@ package com.ciamanutencao.production.services;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +22,7 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     public CategoryDTO createCategory(CategoryDTO categoryDto) {
         Category category = new Category();
@@ -44,7 +45,7 @@ public class CategoryService {
         return new CategoryDTO(category);
     }
 
-    // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     public CategoryDTO updateCategory(Long id, CategoryDTO updatedCategory) {
         try {
@@ -60,7 +61,7 @@ public class CategoryService {
         }
     }
 
-    // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     public void deleteCategory(Long id) {
         if (!categoryRepository.existsById(id)) {

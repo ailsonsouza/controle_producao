@@ -2,8 +2,8 @@ package com.ciamanutencao.production.enums;
 
 public enum UserRole {
     ROLE_ADMIN(1),
-    ROLE_TECHNICIAN(2),
-    ROLE_REQUESTER(3);
+    ROLE_CHIEF(2),
+    ROLE_USER(3);
 
     private final int code;
 

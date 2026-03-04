@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Libera explicitamente o método POST para estas rotas
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/departments").permitAll()
 
                         // Exemplo: se quiser que apenas ADMIN veja a lista de usuários futuramente
                         // .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")

@@ -2,6 +2,7 @@ package com.ciamanutencao.production.services;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +22,7 @@ public class DepartmentService {
         this.DepartmentRepository = DepartmentRepository;
     }
 
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     public DepartmentDTO createDepartment(DepartmentDTO DepartmentDto) {
         Department Department = new Department();
@@ -44,7 +45,7 @@ public class DepartmentService {
         return new DepartmentDTO(Department);
     }
 
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     public DepartmentDTO updateDepartment(Long id, DepartmentDTO updatedDepartment) {
         try {
@@ -60,7 +61,7 @@ public class DepartmentService {
         }
     }
 
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     public void deleteDepartment(Long id) {
         if (!DepartmentRepository.existsById(id)) {

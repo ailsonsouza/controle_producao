@@ -67,6 +67,9 @@ public class User implements UserDetails {
         if (this.userRole == UserRole.ROLE_ADMIN) {
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
         }
+        if (this.userRole == UserRole.ROLE_CHIEF) {
+            return List.of(new SimpleGrantedAuthority("ROLE_CHIEF"), new SimpleGrantedAuthority("ROLE_USER"));
+        }
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 

@@ -2,6 +2,7 @@ package com.ciamanutencao.production.exceptions;
 
 import java.time.Instant;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -61,6 +62,14 @@ public class ResourceExceptionHandler {
         err.setError("Acesso Negado");
         err.setMessage(e.getMessage());
         err.setPath(request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<StandardError> database(DataIntegrityViolationException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError err = new StandardError(Instant.now(), status.value(), "Database exception",
+                "Não é possível excluir o recurso pois ele possui vínculos ativos.", request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
 }

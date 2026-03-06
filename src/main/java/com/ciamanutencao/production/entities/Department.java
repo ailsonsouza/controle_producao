@@ -68,6 +68,10 @@ public class Department implements Serializable {
     public Set<Technical> getTechnicians() {
         return technicians;
     }
+    
+    public void addTechnical(Technical technical){
+        technicians.add(technical);
+    }
 
     @Override
     public int hashCode() {

@@ -40,8 +40,8 @@ public class DepartmentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DepartmentDTO>> findAllCategories() {
-        List<DepartmentDTO> list = departmentService.findAllCategories();
+    public ResponseEntity<List<DepartmentDTO>> findAllDepartments() {
+        List<DepartmentDTO> list = departmentService.findAllDepartments();
         return ResponseEntity.ok().body(list);
     }
 

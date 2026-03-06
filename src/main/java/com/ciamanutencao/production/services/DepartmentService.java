@@ -34,7 +34,7 @@ public class DepartmentService {
     }
 
     @Transactional(readOnly = true)
-    public List<DepartmentDTO> findAllCategories() {
+    public List<DepartmentDTO> findAllDepartments() {
         List<Department> list = DepartmentRepository.findAll();
         return list.stream().map(DepartmentDTO::new).toList();
     }

@@ -148,7 +148,7 @@ public class CategoryServiceTests {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Deve lançar exceção quando o ID não existe")
     void updateCategoryShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist() {
         Long id = 99L;
         CategoryDTO entity = new CategoryDTO(id, "failure test", true);

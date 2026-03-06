@@ -35,9 +35,8 @@ public class Technical implements Serializable {
     public Technical() {
     }
 
-    public Technical(Long id, Department department, String name, Boolean active) {
+    public Technical(Long id, String name, Boolean active) {
         this.id = id;
-        departments.add(department);
         this.name = name;
         this.active = active;
     }
@@ -54,8 +53,8 @@ public class Technical implements Serializable {
         return departments;
     }
 
-    public void setDepartments(Set<Department> departments) {
-        this.departments = departments;
+    public void addDepartments(Department department) {
+        departments.add(department);
     }
 
     public String getName() {

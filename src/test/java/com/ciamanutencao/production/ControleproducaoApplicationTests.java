@@ -1,4 +1,4 @@
-package com.ciamanutencao.controleproducao;
+package com.ciamanutencao.production;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

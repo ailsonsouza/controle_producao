@@ -105,6 +105,7 @@ public class TechnicalServiceTests {
     }
 
     @Test
+    @DisplayName("createTechnical deve lançar AccessDeniedException quando o acesso ao departamento for negado")
     void createTechnicalShouldThrowExceptionWhenAccessIsDenied() {
 
         doThrow(new AccessDeniedException("Access denied"))
@@ -118,6 +119,7 @@ public class TechnicalServiceTests {
     }
 
     @Test
+    @DisplayName("findAllTechnicians deve retornar todos os técnicos quando o usuário for ADMIN")
     void findAllTechniciansShouldReturnAllWhenUserIsAdmin() {
         User admin = new User();
         admin.setUserRole(UserRole.ROLE_ADMIN);
@@ -141,6 +143,7 @@ public class TechnicalServiceTests {
     }
 
     @Test
+    @DisplayName("findAllTechnicians deve filtrar por departamento quando o usuário for CHIEF")
     void findAllTechniciansShouldFilterByDeptWhenUserIsChief() {
         Long deptId = 10L;
         Department dept = new Department();

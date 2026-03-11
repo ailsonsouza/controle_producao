@@ -127,8 +127,6 @@ public class OrderService {
             Technical technical = technicalRepository.findById(updatedOrder.technical().id())
                     .orElseThrow(() -> new ResourceNotFoundException("Técnico não encontrado"));
 
-            securityUtils.checkDepartmentAccess(technical.getDepartments());
-
             entity.setCategory(category);
             entity.setTechnical(technical);
             entity.setServiceLocation(updatedOrder.serviceLocation());
